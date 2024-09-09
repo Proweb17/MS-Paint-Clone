@@ -3,25 +3,67 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 240, 240, 240;
+  --background-end-rgb: 255, 255, 255;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer base {
+  body {
+    @apply bg-gray-100 text-gray-900;
+  }
+}
+
+@layer components {
+  .main-container {
+    @apply min-h-screen flex flex-col items-center justify-center p-4 sm:p-8;
+  }
+
+  .heading-primary {
+    @apply text-4xl font-bold mb-8 text-center text-blue-600;
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded font-semibold text-white transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-blue-500 hover:bg-blue-600;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-500 hover:bg-red-600;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .canvas-border {
+    @apply border-4 border-gray-300 rounded-lg shadow-lg;
+  }
+
+  .control-panel {
+    @apply flex flex-wrap justify-center items-center gap-4 mt-4;
+  }
+
+  .input-range {
+    @apply w-40 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer;
+  }
+
+  .input-range::-webkit-slider-thumb {
+    @apply appearance-none w-6 h-6 bg-blue-500 rounded-full cursor-pointer;
+  }
+
+  .input-color {
+    @apply w-10 h-10 rounded-full overflow-hidden cursor-pointer;
   }
 }
