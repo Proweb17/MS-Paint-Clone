@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { X } from "lucide-react";
 
 export default function Component() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -63,35 +64,48 @@ export default function Component() {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <canvas
-        ref={canvasRef}
-        width={800}
-        height={600}
-        onMouseDown={startDrawing}
-        onMouseMove={draw}
-        onMouseUp={stopDrawing}
-        onMouseOut={stopDrawing}
-        className="canvas-border"
-      />
-      <div className="control-panel">
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          className="input-color"
-        />
-        <input
-          type="range"
-          min="1"
-          max="20"
-          value={brushSize}
-          onChange={(e) => setBrushSize(Number(e.target.value))}
-          className="input-range"
-        />
-        <button onClick={clearCanvas} className="btn-danger">
-          CLEAR
+    <div className="xp-window w-[850px]">
+      <div className="xp-titlebar">
+        <span>
+          <img src="/paint-icon.png" alt="Paint Icon" className="xp-icon" />
+          mandrew's canvas
+        </span>
+        <button className="text-white border-red-900 bg-red-600 hover:bg-red-700  px-2 py-1">
+          <X size={14} />
         </button>
+      </div>
+      <div className="p-4 bg-gray-200">
+        <canvas
+          ref={canvasRef}
+          width={800}
+          height={500}
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseUp={stopDrawing}
+          onMouseOut={stopDrawing}
+          className="border border-gray-400 bg-white"
+        />
+        <div className="flex justify-between items-center mt-4">
+          <div className="flex items-center space-x-4">
+            <input
+              type="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              className="xp-input w-8 h-8"
+            />
+            <input
+              type="range"
+              min="1"
+              max="20"
+              value={brushSize}
+              onChange={(e) => setBrushSize(Number(e.target.value))}
+              className="xp-input"
+            />
+          </div>
+          <button onClick={clearCanvas} className="xp-button">
+            Clear
+          </button>
+        </div>
       </div>
     </div>
   );
