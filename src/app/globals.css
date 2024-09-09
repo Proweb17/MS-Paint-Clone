@@ -4,24 +4,23 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 240, 240, 240;
-  --background-end-rgb: 255, 255, 255;
+  --background-start-rgb: 200, 200, 200;
+  --background-end-rgb: 220, 220, 220;
+  --retro-primary: #ff6b6b;
+  --retro-secondary: #4ecdc4;
+  --retro-accent: #feca57;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer base {
-  body {
-    @apply bg-gray-100 text-gray-900;
-  }
+  background: repeating-linear-gradient(
+    45deg,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-start-rgb)) 10px,
+    rgb(var(--background-end-rgb)) 10px,
+    rgb(var(--background-end-rgb)) 20px
+  );
+  font-family: "Courier New", Courier, monospace;
 }
 
 @layer components {
@@ -30,40 +29,70 @@ body {
   }
 
   .heading-primary {
-    @apply text-4xl font-bold mb-8 text-center text-blue-600;
+    @apply text-4xl font-bold mb-8 text-center text-retro-primary;
+    text-shadow: 2px 2px 0 var(--retro-secondary);
   }
 
   .btn {
-    @apply px-4 py-2 rounded font-semibold text-white transition-colors duration-200;
+    @apply px-4 py-2 rounded font-semibold text-white transition-colors duration-200 uppercase;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
   }
 
   .btn-primary {
-    @apply btn bg-blue-500 hover:bg-blue-600;
+    @apply btn bg-retro-primary hover:bg-retro-secondary;
   }
 
   .btn-danger {
-    @apply btn bg-red-500 hover:bg-red-600;
+    @apply btn bg-retro-accent hover:bg-retro-primary;
   }
 }
 
 @layer utilities {
   .canvas-border {
-    @apply border-4 border-gray-300 rounded-lg shadow-lg;
+    @apply border-8 border-gray-800 rounded-none shadow-lg;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
   }
 
   .control-panel {
-    @apply flex flex-wrap justify-center items-center gap-4 mt-4;
+    @apply flex flex-wrap justify-center items-center gap-4 mt-4 p-4 bg-gray-300 rounded;
+    border: 4px solid #000;
   }
 
   .input-range {
-    @apply w-40 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer;
+    @apply w-40 h-4 bg-gray-400 rounded-none appearance-none cursor-pointer;
   }
 
   .input-range::-webkit-slider-thumb {
-    @apply appearance-none w-6 h-6 bg-blue-500 rounded-full cursor-pointer;
+    @apply appearance-none w-6 h-6 bg-retro-primary rounded-none cursor-pointer;
+    border: 2px solid #000;
   }
 
   .input-color {
-    @apply w-10 h-10 rounded-full overflow-hidden cursor-pointer;
+    @apply w-10 h-10 rounded-none overflow-hidden cursor-pointer;
+    border: 2px solid #000;
+  }
+
+  .bg-retro-primary {
+    background-color: var(--retro-primary);
+  }
+
+  .bg-retro-secondary {
+    background-color: var(--retro-secondary);
+  }
+
+  .bg-retro-accent {
+    background-color: var(--retro-accent);
+  }
+
+  .text-retro-primary {
+    color: var(--retro-primary);
+  }
+
+  .hover\:bg-retro-primary:hover {
+    background-color: var(--retro-primary);
+  }
+
+  .hover\:bg-retro-secondary:hover {
+    background-color: var(--retro-secondary);
   }
 }

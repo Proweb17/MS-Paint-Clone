@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 
-export default function Paint() {
+export default function Component() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState("#000000");
@@ -15,6 +15,8 @@ export default function Paint() {
       if (context) {
         context.lineCap = "round";
         context.lineJoin = "round";
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
       }
     }
   }, []);
@@ -54,7 +56,8 @@ export default function Paint() {
     if (canvas) {
       const context = canvas.getContext("2d");
       if (context) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
       }
     }
   };
@@ -69,14 +72,14 @@ export default function Paint() {
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseOut={stopDrawing}
-        className="border border-gray-300"
+        className="canvas-border"
       />
-      <div className="flex space-x-4">
+      <div className="control-panel">
         <input
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          className="h-10"
+          className="input-color"
         />
         <input
           type="range"
@@ -84,13 +87,10 @@ export default function Paint() {
           max="20"
           value={brushSize}
           onChange={(e) => setBrushSize(Number(e.target.value))}
-          className="w-40"
+          className="input-range"
         />
-        <button
-          onClick={clearCanvas}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-        >
-          Clear
+        <button onClick={clearCanvas} className="btn-danger">
+          CLEAR
         </button>
       </div>
     </div>
